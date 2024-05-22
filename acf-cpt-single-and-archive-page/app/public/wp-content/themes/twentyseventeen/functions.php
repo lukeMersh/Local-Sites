@@ -718,3 +718,53 @@ require get_parent_theme_file_path( '/inc/icon-functions.php' );
  */
 require get_template_directory() . '/inc/block-patterns.php';
 
+/**
+ * custom post types
+ */
+add_action( 'init', function() {
+	register_post_type( 'house', array(
+	'labels' => array(
+		'name' => 'houses',
+		'singular_name' => 'house',
+		'menu_name' => 'houses',
+		'all_items' => 'All houses',
+		'edit_item' => 'Edit house',
+		'view_item' => 'View house',
+		'view_items' => 'View houses',
+		'add_new_item' => 'Add New house',
+		'new_item' => 'New house',
+		'parent_item_colon' => 'Parent house:',
+		'search_items' => 'Search houses',
+		'not_found' => 'No houses found',
+		'not_found_in_trash' => 'No houses found in Trash',
+		'archives' => 'house Archives',
+		'attributes' => 'house Attributes',
+		'insert_into_item' => 'Insert into house',
+		'uploaded_to_this_item' => 'Uploaded to this house',
+		'filter_items_list' => 'Filter houses list',
+		'filter_by_date' => 'Filter houses by date',
+		'items_list_navigation' => 'houses list navigation',
+		'items_list' => 'houses list',
+		'item_published' => 'house published.',
+		'item_published_privately' => 'house published privately.',
+		'item_reverted_to_draft' => 'house reverted to draft.',
+		'item_scheduled' => 'house scheduled.',
+		'item_updated' => 'house updated.',
+		'item_link' => 'house Link',
+		'item_link_description' => 'A link to a house.',
+	),
+	'public' => true,
+	'hierarchical' => true,
+	'show_in_rest' => true,
+	'supports' => array(
+		0 => 'title',
+		1 => 'editor',
+		2 => 'thumbnail',
+	),
+	'has_archive' => true,
+	'rewrite' => array(
+		'feeds' => false,
+	),
+	'delete_with_user' => false,
+) );
+} );

@@ -1,43 +1,37 @@
-/**
-Template Name: Houses for sale
-*/
-
-
-
-
 <?php
-
+/**
+ * The template for displaying archive of houses
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * @package Dosth
+ */
 get_header();
-
-if(have_posts()) : ?>
-
-   <header>
-   <?php
-            // Start the Loop.
-            while ( have_posts() ) :
-                the_post();
-
-                // You can use ACF functions to display custom fields.
-                ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                    <header class="entry-header">
-                        <h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-</header>
-<div class="entry-content">
-                        <?php
-                        // Display custom fields
-                        if ( function_exists('get_field') ) {
-                            $house = get_field('house');
-                            if ( $house ) {
-                                echo '<p>' . esc_html( $house ) . '</p>';
-                            }
-                        }
-                        ?>
-
-                    </div><!-- .entry-content -->
-                    <?php endwhile; 
-                     the_post_navigation();
-                     else :
-                         get_template_part('template-parts/content', 'none');?>
-                         
-
+?>
+<div class="content-container">
+    <h1 class="page-title"><?php post_type_archive_title(); ?></h1>    
+    <div class="reviews-container">
+        <div class="nd-dosth-reviews">
+            <?php if ( have_posts() ): ?>
+                <?php while( have_posts() ): ?>
+                    <?php the_post(); ?>
+                    <div class="review">
+                        <blockquote>
+                            <?php the_content(); ?>
+                            <footer>
+                                <cite><?php the_title(); ?></cite>
+                                <span class="review-from">
+                                    <?php printf( __( 'from %s', 'nd_dosth' ), get_field('source') ); ?>
+                                </span>
+                            </footer>
+                        </blockquote>
+                    </div>
+                <?php endwhile; ?>
+                <?php the_posts_pagination(); ?>
+            <?php else: ?>
+                <p><?php _e( 'No Reviews found', 'nd_dosth' ); ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<?php get_footer(); ?>
