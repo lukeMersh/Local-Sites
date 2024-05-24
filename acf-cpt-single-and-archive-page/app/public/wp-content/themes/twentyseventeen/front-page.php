@@ -53,7 +53,25 @@ get_header(); ?>
 
 	endif; // The if ( 0 !== twentyseventeen_panel_count() ) ends here.
 		?>
-
+		<?php
+$args = array(
+'post_type' => 'house',
+'posts_per_page' => 10
+);
+$house = new WP_Query($args);
+if ($house->have_posts()){
+while ($cpt_posts->have_posts()){
+$house->the_post();
+echo '<h1>'.get_the_title().'</h1>';
+echo '<p>'.get_the_content().'</p>';
+echo '<p>'.the_field('headline').'</p>';
+echo '<p>'.the_field('rooms').'</p>';
+echo '<p>'.the_field('bedrooms').'</p>';
+echo '<p>etc...</p>';
+}
+wp_reset_postdata();
+}
+?>
 	</main><!-- #main -->
 </div><!-- #primary -->
 
